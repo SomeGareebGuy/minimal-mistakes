@@ -27,7 +27,7 @@
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: date_format }}</time>
           </span>
         {% endif %}
-        {% if post.read_time and post.show_date and post.date %}<span class="page__meta-sep" style="margin: 0 0.5em;">|</span>{% endif %}
+        {% if post.read_time and post.show_date and post.date %}<span class="page__meta-sep" style="margin: 0 0;"></span>{% endif %}
         {% if post.read_time %}
           <span class="page__meta-readtime">
             {% assign words_per_minute = post.words_per_minute | default: site.words_per_minute | default: 200 %}
