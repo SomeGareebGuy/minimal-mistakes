@@ -17,6 +17,19 @@
         <img src="{{ teaser | relative_url }}" alt="">
       </div>
     {% endif %}
+    
+    {% comment %} Time Posted (Date) {% endcomment %}
+    {% if post.show_date and post.date %}
+      <p class="page__meta">
+        <span class="page__meta-date">
+          <i class="far fa-calendar-alt" aria-hidden="true"></i>
+          {% assign date_format = site.date_format | default: "%B %-d, %Y" %}
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: date_format }}</time>
+        </span>
+      </p>
+    {% endif %}
+    
+    {% comment %} Post Title {% endcomment %}
     <h2 class="archive__item-title no_toc" itemprop="headline">
       {% if post.link %}
         <a href="{{ post.link }}">{{ title }}</a> <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
@@ -24,7 +37,25 @@
         <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h2>
-    {% include page__meta.html type=include.type %}
+    
+    {% comment %} Read Time {% endcomment %}
+    {% if post.read_time %}
+      <p class="page__meta">
+        <span class="page__meta-readtime">
+          <i class="far fa-clock" aria-hidden="true"></i>
+          {% assign words_per_minute = post.words_per_minute | default: site.words_per_minute | default: 200 %}
+          {% assign words = post.content | strip_html | number_of_words %}
+          {% if words < words_per_minute %}
+            {{ site.data.ui-text[site.locale].less_than | default: "less than" }} 1 {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
+          {% elsif words == words_per_minute %}
+            1 {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
+          {% else %}
+            {{ words | divided_by: words_per_minute }} {{ site.data.ui-text[site.locale].minute_read | default: "minute read" }}
+          {% endif %}
+        </span>
+      </p>
+    {% endif %}
+    
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
   </article>
 </div>
