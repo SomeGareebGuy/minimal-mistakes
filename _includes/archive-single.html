@@ -23,7 +23,7 @@
       <p class="page__meta" style="display: flex; align-items: center; gap: 0.5em;">
         {% if post.show_date and post.date %}
           <span class="page__meta-date">
-            {% assign date_format = "%d %b, %Y" %}
+            {% assign date_format = "%b %d, %Y" %}
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: date_format }}</time>
           </span>
         {% endif %}
