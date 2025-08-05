@@ -293,7 +293,7 @@ body {
    ========================================================================== */
 
 .page__meta {
-  margin-top: 2em;
+  margin-top: 0.5em;
   color: $muted-text-color;
   font-family: $sans-serif;
   font-size: $type-size-6;
@@ -305,6 +305,10 @@ body {
   a {
     color: inherit;
   }
+}
+
+.page__title + .page__meta {
+  margin-top: 0;
 }
 
 .page__meta-title {
